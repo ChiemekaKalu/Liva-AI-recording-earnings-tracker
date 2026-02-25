@@ -6,7 +6,7 @@ class Store:
         self._users: dict[str, User] = {}
         self._recordings: dict[str, Recording] = {}
         self._user_locks: dict[str, threading.Lock] = {}
-        self._recording_lock = threading.Lock()
+        self._recording_locks: dict[str, threading.Lock] = {}
         self._meta_lock = threading.Lock()
 
     def get_or_create_user(self, user_id: str) -> User:

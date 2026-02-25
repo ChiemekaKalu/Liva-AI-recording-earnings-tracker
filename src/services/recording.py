@@ -46,7 +46,7 @@ def end_recording(recording_id: str, start_time: int, end_time: int, participant
                 conflict = find_overlap(user.intervals, candidate)
                 
                 if conflict:
-                    user.earnings_log.append(EarningsEntry(recording_id=recording_id, amount_cents=earnings_cents))
+                    user.earnings_log.append(EarningsEntry(recording_id=recording_id, amount_cents=0))
                     insert_interval(user.intervals, candidate)
                     prior = next( 
                         (e for e in user.earnings_log if e.recording_id == conflict.recording_id and not e.reversed), None
@@ -54,7 +54,7 @@ def end_recording(recording_id: str, start_time: int, end_time: int, participant
                     if prior:
                         prior.reversed = True
                         user.balance_cents = max(0, user.balance_cents - prior.amount_cents)
-                    results.append(CreditResult(user_id=user_id, amount_cents=earnings_cents, reason="fraud"))
+                    results.append(CreditResult(user_id=user_id, amount_cents=0, reason="fraud"))
                 else:
                     user.earnings_log.append(EarningsEntry(recording_id=recording_id, amount_cents=earnings_cents))
                     user.balance_cents += earnings_cents

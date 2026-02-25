@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field    
 from sortedcontainers import SortedKeyList
 from typing import Literal
 
